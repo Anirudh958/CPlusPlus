@@ -9,5 +9,14 @@ int main(){
         cout << st.top() << endl;
         st.pop();
     }
+    stack<int> st2;
+    st2.push(3);
+    st2.push(4);
+    st2.push(5);
+    stack<int> st3(st2); //make a copy of st2
+    while(!st3.empty()){
+        cout<<st3.top()<<endl;
+        st3.pop();
+    }
     return 0;
 }
