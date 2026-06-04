@@ -42,6 +42,24 @@ void breadthFirst(TreeNode* root){
         }
     }
 }
+int maxDepth(TreeNode* root){
+    if(root==nullptr) return 0;
+    int leftDepth=maxDepth(root->left);
+    int rightDepth=maxDepth(root->right);
+    return max(leftDepth,rightDepth)+1;
+}
+TreeNode* invertTree(TreeNode* root){
+    if(root==nullptr) return nullptr;
+    swap(root->left, root->right);
+    invertTree(root->left);
+    invertTree(root->right);
+    return root;
+}
+bool isValidBST(TreeNode* root, long long minval=LLONG_MIN, long long maxval=LLONG_MAX){
+    if(!root) return true;
+    if(root->val<=minval || root->val>=maxval) return false;
+    return isValidBST(root->left,minval,root->val)&&isValidBST(root->right,root->val,maxval);
+}
 int main(){
     TreeNode* root=new TreeNode(5);
     root->left=new TreeNode(3);
@@ -66,5 +84,10 @@ int main(){
     cout<<"Breadth-First traversal: "<<endl;
     breadthFirst(root);
     cout<<endl;
+
+    cout<<"Maximum depth: "<<maxDepth(root)<<endl;
+
+    cout<<"Is Valid BST: "<<isValidBST(root)<<endl;
+
     return 0;
 }
