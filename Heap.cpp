@@ -16,30 +16,24 @@ private:
 
     // "Bubble up" – used after inserting a new element.
     // Moves the element at index i up until heap property is restored.
-    void siftUp(int i) {
-        while (i > 0 && heap[parent(i)] > heap[i]) {
-            swap(heap[i], heap[parent(i)]);
-            i = parent(i);
+    void siftUp(int i){
+        while(i>0 && heap[i]<heap[parent(i)]){
+            swap(heap[i],heap[parent(i)]);
+            i=parent(i);
         }
     }
 
     // "Bubble down" – used after extracting the minimum or during heap building.
     // Moves the element at index i down until heap property is restored.
-    void siftDown(int i) {
-        int smallest = i;
-        int l = left(i);
-        int r = right(i);
-        int n = heap.size();
-
-        if (l < n && heap[l] < heap[smallest])
-            smallest = l;
-        if (r < n && heap[r] < heap[smallest])
-            smallest = r;
-
-        // If the smallest is not the current node, swap and continue
-        if (smallest != i) {
-            swap(heap[i], heap[smallest]);
-            siftDown(smallest);   // recursively fix the affected subtree
+    void siftDown(int i){
+        int smallest=i;
+        int l=left(i);
+        int r=right(i);
+        if(l<heap.size() && heap[l]<heap[smallest]) smallest=l;
+        if(r<heap.size() && heap[r]<heap[smallest]) smallest=r;
+        if(smallest!=i){
+            swap(heap[i],heap[smallest]);
+            siftDown(smallest);
         }
     }
 
