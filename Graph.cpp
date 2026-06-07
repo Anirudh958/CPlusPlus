@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 class graph{
     public:
@@ -24,6 +25,33 @@ class graph{
                 cout<<endl;
             }
         }
+        void DFS(int start,vector<bool>& visited){
+            visited[start]=true;
+            cout<<start<<" ";
+            for(int neighbour: adj[start]){
+                if(!visited[neighbour]){
+                    DFS(neighbour,visited);
+                }
+            }
+        }
+        void BFS(int start){
+            vector<bool> visited;
+            visited.resize(v,false);
+            queue<int> q;
+            visited[start]=true;
+            q.push(start);
+            while(!q.empty()){
+                int current=q.front();
+                q.pop();
+                cout<<current<<" ";
+                for(int neighbour: adj[current]){
+                    if(!visited[neighbour]){
+                        visited[neighbour]=true;
+                        q.push(neighbour);
+                    }
+                }
+            }
+        }
 };
 int main(){
     graph g(4);
@@ -32,5 +60,13 @@ int main(){
     g.addEdge(1,2);
     g.addEdge(2,3);
     g.printGraph();
+    int v=4;
+    cout<<"DFS traversal starting from vertex 0: ";
+    vector<bool> visited(v, false);
+    g.DFS(0, visited);
+    cout<<endl;
+    cout<<"BFS traversal starting from vertex 0: ";
+    g.BFS(0);
+    cout<<endl;
     return 0;
 }
